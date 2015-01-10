@@ -1,0 +1,28 @@
+AddressBook
+
+Utwórz nowy moduł o nazwie addressBook, który będzie zawierał funkcje do obsługi książki adresowej. Książka powinna przechowywać:
+
+    imiona,
+    nazwiska,
+    numery telefonów,
+    adresy e-mail.
+
+Nie powinno być możliwe dodanie dwóch wpisów o tym samym:
+
+    imieniu i nazwisku,
+    adresie e-mail
+    telefonie.
+
+Zaprojektuj strukturę danych, wykorzystaj rekordy. Funkcje w module:
+
+    createAddressBook/0 - tworzy i zwraca nową książkę adresową;
+    addContact/3 - dodaje wpis: (imię, nazwisko); zwraca zaktualizowaną książkę;
+    addEmail/4 - dodaje lub aktualizuje wpis: (imię, nazwisko, email); zwraca zaktualizowaną książkę;
+    addPhone/4 - dodaje lub aktualizuje wpis: (imię, nazwisko, telefon); zwraca zaktualizowaną książkę;
+    removeContact/3 - usuwa wpis dla danego imienia i nazwiska, zwraca zaktualizowaną książkę,
+    removeEmail/2 - usuwa podany email, zwraca zaktualizowaną książkę;
+    removePhone/2 - usuwa podany telefon, zwraca zaktualizowaną książkę;
+    getEmails/3 - zwraca listę adresów email dla danego imienia i nazwiska;
+    getPhones/3 - zwraca listę numerów telefonu dla danego imienia i nazwiska;
+    findByEmail/2 - zwraca imię i nazwisko dla danego adresu email;
+    findByPhone/2 - zwraca imię i nazwisko dla danego numeru telefonu;
