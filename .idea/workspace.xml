@@ -30,10 +30,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="rAddressBook.erl" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="rAddressBook.erl" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/rAddressBook.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.6346154" vertical-offset="0" max-vertical-offset="2772">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2772">
               <caret line="137" column="0" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
               <folding />
             </state>
@@ -50,10 +50,23 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name=".README" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.README">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.62608695" vertical-offset="0" max-vertical-offset="1152">
+              <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
+            <state />
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="rAddressBookOTP.erl" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/rAddressBookOTP.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3024">
+            <state vertical-scroll-proportion="0.0" vertical-offset="293" max-vertical-offset="3024">
               <caret line="27" column="18" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
               <folding />
             </state>
@@ -86,7 +99,6 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/src/addressBookTest.erl" />
-        <option value="$PROJECT_DIR$/.README" />
         <option value="$PROJECT_DIR$/src/rAddressBook.erl" />
         <option value="$PROJECT_DIR$/src/addressBook.erl" />
         <option value="$PROJECT_DIR$/src/rAddressBookSup.erl" />
@@ -95,6 +107,7 @@
         <option value="$PROJECT_DIR$/src/rAddressBookOTPSync.erl" />
         <option value="$PROJECT_DIR$/src/rAddressBookOTPSup.erl" />
         <option value="$PROJECT_DIR$/src/rAddressBookOTP.erl" />
+        <option value="$PROJECT_DIR$/.README" />
       </list>
     </option>
   </component>
@@ -568,12 +581,12 @@
       <workItem from="1420961231721" duration="15218000" />
       <workItem from="1421095130223" duration="700000" />
       <workItem from="1421271390373" duration="38000" />
-      <workItem from="1421432887628" duration="9758000" />
+      <workItem from="1421432887628" duration="10975000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54095000" />
+    <option name="totallyTimeSpent" value="55312000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1366" y="1190" width="1680" height="1050" extended-state="6" />
@@ -777,16 +790,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.README">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8064" vertical-offset="0" max-vertical-offset="625">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.113804005" vertical-offset="0" max-vertical-offset="949">
@@ -819,6 +822,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/rAddressBook.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="540" max-vertical-offset="2772">
+          <caret line="137" column="0" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/rAddressBookSup.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="918">
+          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/rAddressBookOTP.erl">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3024">
@@ -835,20 +854,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/rAddressBookSup.erl">
+    <entry file="file://$PROJECT_DIR$/.README">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="918">
-          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.62608695" vertical-offset="0" max-vertical-offset="1152">
+          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/rAddressBook.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.6346154" vertical-offset="0" max-vertical-offset="2772">
-          <caret line="137" column="0" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
-          <folding />
-        </state>
+      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
+        <state />
       </provider>
     </entry>
   </component>

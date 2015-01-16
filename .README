@@ -1,28 +1,59 @@
 AddressBook
 
-Utwórz nowy moduł o nazwie addressBook, który będzie zawierał funkcje do obsługi książki adresowej. Książka powinna przechowywać:
+Create new module called addressBook, that will contain address book functionality. The address book should be able to store:
 
-    imiona,
-    nazwiska,
-    numery telefonów,
-    adresy e-mail.
+    first names,
+    last names,
+    phone numbers,
+    e-mail addresses,
+    employment (company and position)
 
-Nie powinno być możliwe dodanie dwóch wpisów o tym samym:
+It should be impossible to add two entries with same:
 
-    imieniu i nazwisku,
-    adresie e-mail
-    telefonie.
+    first and last name,
+    e-mail address,
+    phone number.
 
-Zaprojektuj strukturę danych, wykorzystaj rekordy. Funkcje w module:
+Design a data structure, use records. Functions to implement in module:
 
-    createAddressBook/0 - tworzy i zwraca nową książkę adresową;
-    addContact/3 - dodaje wpis: (imię, nazwisko); zwraca zaktualizowaną książkę;
-    addEmail/4 - dodaje lub aktualizuje wpis: (imię, nazwisko, email); zwraca zaktualizowaną książkę;
-    addPhone/4 - dodaje lub aktualizuje wpis: (imię, nazwisko, telefon); zwraca zaktualizowaną książkę;
-    removeContact/3 - usuwa wpis dla danego imienia i nazwiska, zwraca zaktualizowaną książkę,
-    removeEmail/2 - usuwa podany email, zwraca zaktualizowaną książkę;
-    removePhone/2 - usuwa podany telefon, zwraca zaktualizowaną książkę;
-    getEmails/3 - zwraca listę adresów email dla danego imienia i nazwiska;
-    getPhones/3 - zwraca listę numerów telefonu dla danego imienia i nazwiska;
-    findByEmail/2 - zwraca imię i nazwisko dla danego adresu email;
-    findByPhone/2 - zwraca imię i nazwisko dla danego numeru telefonu;
+    createAddressBook/0     - creates and returns a new address book
+    addContact/3            - adds entry (first name, last name), returns modified book;
+    addEmail/4              - adds or modifies entry (first name, last name, e-mail address), returns modified book;
+    addPhone/4              - adds or modifies entry (first name, last name, phone number), returns modified book;
+    removeContact/3         - removes entry for given first and last name, returns modified book,
+    removeEmail/2           - removes given e-mail address, returns modified book;
+    removePhone/2           - removes given phone number, returns modified book;
+    getEmails/3             - returns the list of e-mail addresses for given first and last name;
+    getPhones/3             - returns the list of phone numbers for given first and last name;
+    findByEmail/2           - returns first and last name for a given e-mail address;
+    findByPhone/2           - returns first and last name for a given phone number;
+
+    Add functions to set the employment information for a record and find all employees of a company, given it's name.
+
+
+    Write module rAddressBook, that will implement the address book server, based on a addressBook module.
+    It should publish the following functions:
+
+        start/0,
+        stop/0,
+        addContact/2,
+        addEmail/3,
+        addPhone/3,
+        removeContact/2,
+        removeEmail/3,
+        removePhone/3,
+        getEmails/2,
+        getPhones/2,
+        findByEmail/1,
+        findByPhone/1,
+
+        and the employment-related functions.
+
+    Add function crash/0 to the server's interface, that will cause an illegal arithmetic operation in a server's process.
+    Check, that server stopped working after that function's invocation.
+    Add module rAddressBookSup, that will start address book server and will monitor it's operation.
+    In case of a failure, it should restart the server.
+
+    Create the new version of the address book server (rAddressBookOtp), using OTP design patterns (behaviours):
+        gen_server - server process, publishing the same functionality
+        supervisor - supervising process, that will recreate the server in case of it's unexpected termination
