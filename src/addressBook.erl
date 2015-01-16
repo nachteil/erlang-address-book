@@ -13,35 +13,50 @@
 -record(entry, {
   fullName,
   phones = [],
-  emails = []
+  emails = [],
+  employment = {}
 }).
 
 %% API
--export([createAddressBook/0, addContact/3, addEmail/4, addPhone/4, removeContact/3, removeEmail/2, getEmails/3, getPhones/3, findByPhone/2, findByEmail/2]).
+-export([createAddressBook/0,
+  addContact/3,
+  addEmail/4,
+  addPhone/4,
+  removeContact/3,
+  removeEmail/2,
+  getEmails/3,
+  getPhones/3,
+  findByPhone/2,
+  findByEmail/2,
+  removePhones/2,
+  setEmployment/5, findByCompany/2]).
 
 getBy(Predicate, AddressBook, FilterValue) ->
   Filter = case Predicate of
-             emil -> fun(CurrentEntry) -> lists:member(FilterValue, CurrentEntry#entry.emails) end ;
+             email -> fun(CurrentEntry) -> lists:member(FilterValue, CurrentEntry#entry.emails) end ;
              phone -> fun(CurrentEntry) -> lists:member(FilterValue, CurrentEntry#entry.phones) end ;
              fullName -> fun(CurrentEntry) -> CurrentEntry#entry.fullName == FilterValue end ;
-             _ -> fun(CurrentEntry) -> 1 == 0 end
+             employment -> fun(CurrentEntry) -> {Company, _ } = CurrentEntry#entry.employment, Company == FilterValue end ;
+             _ -> fun(_) -> 1 == 0 end
            end,
-  lists:filter(Filter, AddressBook)
-.
+  lists:filter(Filter, AddressBook).
+
+getModifiedPhonesAndEmails(phone, remove, Entry, ModificationValue) ->
+  {Entry#entry.phones -- [ModificationValue], Entry#entry.emails} ;
+
+getModifiedPhonesAndEmails(phone, add, Entry, ModificationValue) ->
+  {[ModificationValue | Entry#entry.phones], Entry#entry.emails} ;
+
+getModifiedPhonesAndEmails(email, remove, Entry, ModificationValue) ->
+  {Entry#entry.phones, Entry#entry.emails -- [ModificationValue]} ;
+
+getModifiedPhonesAndEmails(email, add, Entry, ModificationValue) ->
+  {Entry#entry.phones, [ModificationValue | Entry#entry.emails]}.
 
 modifyEntry(FieldType, Operation, Entry, ModificationValue) ->
-  {Phones, Emails} =  case FieldType of
-                        phone -> case Operation of
-                                   remove -> {Entry#entry.phones -- [ModificationValue], Entry#entry.emails} ;
-                                   add -> {[ModificationValue | Entry#entry.phones], Entry#entry.emails}
-                                 end ;
-                        emil -> case Operation of
-                                  remove -> {Entry#entry.phones, Entry#entry.emails -- [ModificationValue]} ;
-                                  add -> {Entry#entry.phones, addEmil, [ModificationValue | Entry#entry.emails]}
-                                end
-                      end
-  #entry{fullName = Entry#entry.fullName, phones = Phones, emails = Emails}
-.
+  {Phones, Emails} =  getModifiedPhonesAndEmails(FieldType, Operation, Entry, ModificationValue),
+  Employment = if FieldType == employment -> ModificationValue; FieldType /= employment -> Entry#entry.employment end,
+  #entry{fullName = Entry#entry.fullName, phones = Phones, emails = Emails, employment = Employment}.
 
 createAddressBook() ->
   [].
@@ -64,87 +79,65 @@ addValue(FieldType, AddressBook, ValueToAdd, FirstName, LastName) ->
                                [ModifiedEntry | AddressBook -- [EntryWithSameName]] ;
                              _ -> AddressBook
                            end
-  end
-.
+  end.
 
 addEmail(AddressBook, FirstName, LastName, Email) ->
-  case getBy(fullName, AddressBook, {FirstName, LastName}) of
-    [] -> case getBy(emil, AddressBook, Email) of
-            [] -> [#entry{fullName = {FirstName, LastName}, emails = [Email]} | AddressBook];
-            _ -> AddressBook
-          end ;
-    [EntryWithSameName] -> case getBy(emil, AddressBook, Email) of
-                            [] ->
-                              ModifiedEntry = #entry{
-                                fullName = {FirstName, LastName},
-                                emails = [Email | EntryWithSameName#entry.emails ],
-                                phones = EntryWithSameName#entry.phones
-                              },
-                              [ModifiedEntry | AddressBook -- [EntryWithSameName]] ;
-                            _ -> AddressBook
-                           end
-  end.
+  addValue(email, AddressBook, Email, FirstName, LastName).
 
 addPhone(AddressBook, FirstName, LastName, Phone) ->
-  case getBy(fullName, AddressBook, {FirstName, LastName}) of
-    [] -> case getBy(phone, AddressBook, Phone) of
-            [] -> [#entry{fullName = {FirstName, LastName}, phones = [Phone]} | AddressBook];
-            _ -> AddressBook
-          end ;
-    [EntryWithSameName] -> case getBy(phone, AddressBook, Phone) of
-                             [] ->
-                               ModifiedEntry = #entry{
-                                 fullName = {FirstName, LastName},
-                                 phones = [Phone | EntryWithSameName#entry.phones ],
-                                 emails = EntryWithSameName#entry.emails
-                               },
-                               [ModifiedEntry | AddressBook -- [EntryWithSameName]] ;
-                             _ -> AddressBook
-                           end
-  end.
+  addValue(phone, AddressBook, Phone, FirstName, LastName).
 
 removeContact(AddressBook, FirstName, LastName) ->
   case getBy(fullName, AddressBook, {FirstName, LastName}) of
-    [EntryFound] -> AddressBook - [EntryFound] ;
+    [EntryFound] -> AddressBook -- [EntryFound] ;
     _ -> AddressBook
-  end
-.
+  end.
 
 removeEmail(AddressBook, Email) ->
-  case getBy(emil, AddressBook, Email) of
-    [EntryFound] ->
-      ModifiedEntry = #entry{
-        fullName = EntryFound#entry.fullName,
-        phones = EntryFound#entry.phones,
-        emails = EntryFound#entry.emails -- [Email]
-      },
-      [ModifiedEntry | AddressBook -- [EntryFound]]
+  case getBy(email, AddressBook, Email) of
+    [EntryFound] -> [modifyEntry(email, remove, EntryFound, Email) | AddressBook -- [EntryFound]] ;
+    _ -> AddressBook
+  end.
+
+removePhones(AddressBook, Phone) ->
+  case getBy(phone, AddressBook, Phone) of
+    [EntryFound] -> [modifyEntry(phone, remove, EntryFound, Phone) | AddressBook -- [EntryFound]] ;
+    _ -> AddressBook
   end.
 
 getEmails(AddressBook, FirstName, LastName) ->
   case getBy(fullName, AddressBook, {FirstName, LastName}) of
     [SomeEntry] -> SomeEntry#entry.emails ;
     _ -> []
-  end
-.
+  end.
 
 getPhones(AddressBook, FirstName, LastName) ->
   case getBy(fullName, AddressBook, {FirstName, LastName}) of
     [SomeEntry] -> SomeEntry#entry.phones;
     _ -> []
-  end
-.
+  end.
 
 findByEmail(AddressBook, Email) ->
-  case getBy(emil, AddressBook, Email) of
+  case getBy(email, AddressBook, Email) of
     [FoundEntry] -> FoundEntry#entry.fullName ;
     _ -> recordNotFound
-  end
-.
+  end.
 
 findByPhone(AddressBook, Phone) ->
   case getBy(phone, AddressBook, Phone) of
     [FoundEntry] -> FoundEntry#entry.fullName ;
     _ -> recordNotFound
-  end
-.
+  end.
+
+setEmployment(AddressBook, FirstName, LastName, Company, Position) ->
+  case getBy(fullName, AddressBook, {FirstName, LastName}) of
+    [EntryFound] ->
+      [modifyEntry(employment, any, EntryFound, {Company, Position}) | AddressBook -- [EntryFound]] ;
+    _ -> [#entry{fullName = {FirstName, LastName}, employment = {Company, Position}} | AddressBook]
+  end.
+
+findByCompany(AddressBook, Company) ->
+  case getBy(employment, AddressBook, Company) of
+    [] -> noEmployeeWorksForThisCompany;
+    List -> List
+  end.
